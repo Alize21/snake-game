@@ -20,9 +20,23 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+       
+            
+    keys = pygame.key.get_pressed()
 
-    Snake.draw_snake(snake,screen)
-    Snake.snake_mov(snake)
+    if keys[pygame.K_w]:
+        snake.set_direction("up")
+    if keys[pygame.K_s]:
+        snake.set_direction("down")
+    if keys[pygame.K_d]:
+        snake.set_direction("right")
+    if keys[pygame.K_a]:
+        snake.set_direction("left")
+            
+
+    snake.update_position()
+
+    snake.draw_snake(screen)
 
     pygame.display.update()
 
