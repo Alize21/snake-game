@@ -1,4 +1,5 @@
 import pygame
+import random
 
 class Snake:
 
@@ -37,4 +38,11 @@ class Snake:
        
 class Apple:
 
-    pass
+    def __init__(self,width_screen,height_screen):
+        self.x = random.randint(10,width_screen-15)
+        self.y = random.randint(10,height_screen-15)
+
+
+    def draw_apple(self,screen):
+        circle_pos = (self.x,self.y)
+        pygame.draw.circle(screen,"red",circle_pos,7)
