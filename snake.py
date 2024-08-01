@@ -8,9 +8,10 @@ class Snake:
         self.x = x_position
         self.y = y_position
         self.direction = "up"
-        self.speed = 0.5
+        self.speed = 0.8
         self.head = []
-        self.body = [[100,250]]
+        self.body = [[x_position,y_position]]
+        self.length = 1
 
     def draw_snake(self,screen,snake_body_pos):
         for x,y in snake_body_pos:
@@ -18,6 +19,7 @@ class Snake:
             
 
     def update_position(self,snake_body):
+        
         if self.direction == "up":
             snake_body[0][1]-=self.speed
         if self.direction == "down":
