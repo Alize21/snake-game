@@ -7,7 +7,7 @@ class Snake:
     def __init__(self,x_position,y_position):
         self.x = x_position
         self.y = y_position
-        self.direction = "up"
+        self.direction = None
         self.speed = 10
         self.body = [[x_position,y_position]]
         self.length = 1
@@ -36,6 +36,11 @@ class Snake:
             self.direction = new_direction
         elif self.direction == "left" and new_direction !="right":
             self.direction = new_direction
+        elif self.direction == None:
+            self.direction = new_direction
+
+    def grow(self):
+        self.length += 1
 
        
 class Apple:

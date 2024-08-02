@@ -10,7 +10,7 @@ width,height = 800,500
 screen = pygame.display.set_mode((width,height))
 pygame.display.set_caption("Snake")
 
-# Snake and apple init
+# Snake and apple initialization
 snake = Snake(width//2,height//2)
 apple = Apple(width,height)
 
@@ -26,7 +26,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
        
-            
+    # Game keys        
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_w]:
@@ -39,14 +39,18 @@ while running:
         snake.set_direction("left")
 
 
-    # Detect colliding with snake        
+    # Detect colliding with snake and grow the snake body everytime the snake eats       
     if snake.x < apple.x+12 and snake.x+23 > apple.x and snake.y < apple.y+12 and snake.y+23 > apple.y:
         apple.x = random.randint(10,width-15)
         apple.y = random.randint(10,height-15)
-        snake.length += 1
+        snake.grow()
 
+    # Add new segment to the list
     snake.body.insert(0,[snake.x,snake.y])
 
+    # Prevent the snake to grow more than it's length
+    if len(snake.body) > snake.length:
+        del snake.body[-1]
 
     apple.draw_apple(screen)
             
@@ -54,11 +58,7 @@ while running:
 
     snake.update_position()
 
-    if len(snake.body) > snake.length:
-        del snake.body[-1]
-
     pygame.display.update()
-
 
     clock.tick(30)
     
