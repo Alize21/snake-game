@@ -8,26 +8,24 @@ class Snake:
         self.x = x_position
         self.y = y_position
         self.direction = "up"
-        self.speed = 0.8
-        self.head = []
+        self.speed = 10
         self.body = [[x_position,y_position]]
         self.length = 1
 
-    def draw_snake(self,screen,snake_body_pos):
-        for x,y in snake_body_pos:
+    def draw_snake(self,screen,snakebody):
+        for x,y in snakebody:
             pygame.draw.rect(screen,"green",(x,y,20,20))
             
 
-    def update_position(self,snake_body):
-        
+    def update_position(self):       
         if self.direction == "up":
-            snake_body[0][1]-=self.speed
+            self.y-=self.speed
         if self.direction == "down":
-            snake_body[0][1]+=self.speed
+            self.y+=self.speed
         if self.direction == "left":
-            snake_body[0][0]-=self.speed
+            self.x-=self.speed
         if self.direction == "right":
-            snake_body[0][0]+=self.speed
+            self.x+=self.speed
     
     def set_direction(self,new_direction):
         if self.direction == "up" and new_direction !="down":
