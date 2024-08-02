@@ -8,14 +8,16 @@ class Snake:
         self.x = x_position
         self.y = y_position
         self.direction = "up"
-        self.speed = 0.2
+        self.speed = 10
+        self.body = [[x_position,y_position]]
+        self.length = 1
 
-    def draw_snake(self,screen):
-        
-        snake = pygame.draw.rect(screen,"green",(self.x,self.y,22,22))
-        return snake
+    def draw_snake(self,screen,snakebody):
+        for x,y in snakebody:
+            pygame.draw.rect(screen,"green",(x,y,20,20))
+            
 
-    def update_position(self):
+    def update_position(self):       
         if self.direction == "up":
             self.y-=self.speed
         if self.direction == "down":
@@ -45,4 +47,4 @@ class Apple:
 
     def draw_apple(self,screen):
         circle_pos = (self.x,self.y)
-        pygame.draw.circle(screen,"red",circle_pos,12)
+        pygame.draw.circle(screen,"red",circle_pos,7)

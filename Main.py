@@ -2,6 +2,7 @@ import pygame
 import random
 from snake import *
 
+
 pygame.init()
 
 # Creating window
@@ -12,6 +13,8 @@ pygame.display.set_caption("Snake")
 # Snake and apple init
 snake = Snake(width//2,height//2)
 apple = Apple(width,height)
+
+clock = pygame.time.Clock()
 
 # Mainloop
 running = True
@@ -40,15 +43,24 @@ while running:
     if snake.x < apple.x+12 and snake.x+23 > apple.x and snake.y < apple.y+12 and snake.y+23 > apple.y:
         apple.x = random.randint(10,width-15)
         apple.y = random.randint(10,height-15)
-   
+        snake.length += 1
+
+    snake.body.insert(0,[snake.x,snake.y])
+
 
     apple.draw_apple(screen)
+            
+    snake.draw_snake(screen,snake.body)
 
     snake.update_position()
 
-    snake.draw_snake(screen)
+    if len(snake.body) > snake.length:
+        del snake.body[-1]
 
     pygame.display.update()
 
 
+    clock.tick(30)
+    print(snake.body)
+    
 pygame.quit()
