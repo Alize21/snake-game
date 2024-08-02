@@ -61,6 +61,5 @@ while running:
 
 
     clock.tick(30)
-    print(snake.body)
     
 pygame.quit()
