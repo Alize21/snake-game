@@ -1,6 +1,7 @@
 import pygame
 import random
 from snake import *
+from button import *
 
 
 pygame.init()
@@ -9,11 +10,15 @@ pygame.init()
 width,height = 800,500
 screen = pygame.display.set_mode((width,height))
 pygame.display.set_caption("Snake")
-font = pygame.font.Font("project yang kubuat/snake-game/assets/font/game_over.ttf",200)
 
-# Snake and apple initialization
+# Game initialization
 snake = Snake(width//2,height//2)
-apple = Apple(width,height)
+apple = Fruit(width,height)
+font = pygame.font.Font("project yang kubuat/snake-game/assets/font/game_over.ttf",200)
+restart_img = pygame.image.load("project yang kubuat/snake-game/assets/button/restart.png").convert_alpha()
+exit_img = pygame.image.load("project yang kubuat/snake-game/assets/button/exit.png").convert_alpha()
+restart_button = Button(510//2,580//2,restart_img,0.3)
+exit_button = Button(830//2,580//2,exit_img,0.3)
 
 clock = pygame.time.Clock()
 
@@ -26,9 +31,8 @@ game_over_flag = False
 running = True
 while running:
 
-
     if not game_over_flag:
-        screen.fill("#5C9CB8")
+        screen.fill("#5C9CB8")        
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -65,20 +69,37 @@ while running:
             game_over_flag = True
 
 
-        apple.draw_apple(screen)               
+        apple.draw_fruit(screen)               
         snake.draw_snake(screen,snake.body)
+
+        
+        
         snake.update_position()
-
-
+        
+        #print(restart_button.rect)
+        
     else:
 
         game_over()
+
+        if exit_button.click():
+            running = False
+        if restart_button.click():
+            snake.length = 1
+            snake.x = width//2
+            snake.y = height//2
+            snake.direction = None
+            del snake.body[1:]
+            game_over_flag = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN and event.type == pygame.K_RETURN:
                 running = False
+
+        restart_button.draw(screen)
+        exit_button.draw(screen)
 
     pygame.display.update()
     clock.tick(30)

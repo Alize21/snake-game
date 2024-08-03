@@ -47,17 +47,13 @@ class Snake:
             if self.x == segment[0] and self.y == segment[1]:
                 return True
         return False 
-
-
-
        
-class Apple:
+class Fruit:
 
     def __init__(self,width_screen,height_screen):
         self.x = random.randint(10,width_screen-15)
         self.y = random.randint(10,height_screen-15)
 
-
-    def draw_apple(self,screen):
+    def draw_fruit(self,screen):
         circle_pos = (self.x,self.y)
         pygame.draw.circle(screen,"red",circle_pos,7)
