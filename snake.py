@@ -40,7 +40,15 @@ class Snake:
             self.direction = new_direction
 
     def grow(self):
-        self.length += 1
+        self.length += 5
+        
+    def check_collision(self):
+        for segment in self.body[1:]:
+            if self.x == segment[0] and self.y == segment[1]:
+                return True
+        return False 
+
+
 
        
 class Apple:
