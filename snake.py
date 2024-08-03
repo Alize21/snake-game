@@ -40,7 +40,7 @@ class Snake:
             self.direction = new_direction
 
     def grow(self):
-        self.length += 5
+        self.length += 1.5
         
     def check_collision(self):
         for segment in self.body[1:]:
