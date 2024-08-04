@@ -14,9 +14,9 @@ pygame.display.set_caption("Snake")
 # Game initialization
 snake = Snake(width//2,height//2)
 apple = Fruit(width,height)
-font = pygame.font.Font("project yang kubuat/snake-game/assets/font/game_over.ttf",200)
-restart_img = pygame.image.load("project yang kubuat/snake-game/assets/button/restart.png").convert_alpha()
-exit_img = pygame.image.load("project yang kubuat/snake-game/assets/button/exit.png").convert_alpha()
+font = pygame.font.Font("assets/font/game_over.ttf",200)
+restart_img = pygame.image.load("assets/button/restart.png").convert_alpha()
+exit_img = pygame.image.load("assets/button/exit.png").convert_alpha()
 restart_button = Button(510//2,580//2,restart_img,0.3)
 exit_button = Button(830//2,580//2,exit_img,0.3)
 
