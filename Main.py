@@ -10,21 +10,26 @@ pygame.init()
 width,height = 800,500
 screen = pygame.display.set_mode((width,height))
 pygame.display.set_caption("Snake")
+clock = pygame.time.Clock()
 
 # Game initialization
-snake = Snake(width//2,height//2)
-apple = Fruit(width,height)
-font = pygame.font.Font("assets/font/game_over.ttf",200)
+game_over_font = pygame.font.Font("assets/font/game_over.ttf",200)
+score_font = pygame.font.Font("assets/font/game_over.ttf",70)
 restart_img = pygame.image.load("assets/button/restart.png").convert_alpha()
 exit_img = pygame.image.load("assets/button/exit.png").convert_alpha()
+snake = Snake(width//2,height//2)
+apple = Fruit(width,height)
 restart_button = Button(510//2,580//2,restart_img,0.3)
 exit_button = Button(830//2,580//2,exit_img,0.3)
 
-clock = pygame.time.Clock()
-
 def game_over():
-    overtext = font.render("Game Over",True,"#02aa07")
+    overtext = game_over_font.render("Game Over",True,"#02aa07")
     screen.blit(overtext,(width//2-190,height//2-70))
+
+score_val = 0
+def score():
+    score = score_font.render("Score " + str(score_val),True,"black")
+    screen.blit(score,(10,10))
 
 # Mainloop
 game_over_flag = False
@@ -56,6 +61,7 @@ while running:
             apple.x = random.randint(10,width-15)
             apple.y = random.randint(10,height-15)
             snake.grow()
+            score_val += 10
 
         # Add new segment to the list
         snake.body.insert(0,[snake.x,snake.y])
@@ -67,20 +73,20 @@ while running:
         # Game over
         if snake.check_collision():
             game_over_flag = True
-
+        if snake.body[0][0] > width-23 or snake.body[0][0] < 1 or snake.body[0][1] > height-23 or snake.body[0][1] < 1:
+            game_over_flag = True
 
         apple.draw_fruit(screen)               
         snake.draw_snake(screen,snake.body)
-
-        
+        score()
         
         snake.update_position()
         
-        #print(restart_button.rect)
         
     else:
 
         game_over()
+        score()
 
         if exit_button.click():
             running = False
@@ -91,11 +97,12 @@ while running:
             snake.direction = None
             del snake.body[1:]
             game_over_flag = False
+            apple.x = random.randint(10,width-15)
+            apple.y = random.randint(10,height-15)
+            score_val = 0
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
-            if event.type == pygame.KEYDOWN and event.type == pygame.K_RETURN:
                 running = False
 
         restart_button.draw(screen)
