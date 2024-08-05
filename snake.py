@@ -43,7 +43,7 @@ class Snake:
         self.length += 1.5
         
     def check_collision(self):
-        for segment in self.body[1:]:
+        for segment in self.body[2:]:
             if self.x == segment[0] and self.y == segment[1]:
                 return True
         return False 
